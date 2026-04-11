@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EROS ASCENDS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+
+      /* ── Atmospheric layered background ──
+         Layer 1 (top):  soft pink glow, upper-right — very faint bloom
+         Layer 2:        teal glow, lower-left — subtle depth
+         Layer 3:        small warm highlight, center-top — hint of light
+         Layer 4 (base): dark diagonal gradient, black → deep green
+      */
+      background-color: #000000;
+      background-image:
+        radial-gradient(ellipse 70% 55% at 80% 15%,
+          rgba(204, 111, 152, 0.12) 0%,
+          transparent 70%),
+        radial-gradient(ellipse 80% 65% at 15% 85%,
+          rgba(0, 88, 96, 0.18) 0%,
+          transparent 65%),
+        radial-gradient(ellipse 40% 35% at 50% 20%,
+          rgba(255, 255, 255, 0.03) 0%,
+          transparent 60%),
+        linear-gradient(160deg,
+          #000000 0%,
+          #0a1a10 30%,
+          #24442e 65%,
+          #003a40 100%);
+      background-attachment: fixed;
+
+      color: #ede6da;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* ── Title ── */
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #f4ece0;
+      margin-bottom: 1.75rem;
+    }
+
+    /* ── Intro ── */
+    .intro {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #b8b0a2;
+      margin-bottom: 2.5rem;
+    }
+
+    .intro em {
+      font-style: italic;
+      color: #c8bfb2;
+    }
+
+    /* ── Button ── */
+    .btn {
+      display: inline-block;
+      font-family: inherit;
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      color: #ffffff;
+      background-color: #6A2543;
+      border: none;
+      border-radius: 6px;
+      padding: 0.9rem 2rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn:hover {
+      background-color: #7d2e52;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid #6A2543;
+      outline-offset: 3px;
+    }
+
+    /* ── Question Card ── */
+    .question-card {
+      margin-top: 2.5rem;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none;
+    }
+
+    .question-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    /* Fade-out class for swapping questions */
+    .question-card.fading {
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.15s ease, transform 0.15s ease;
+    }
+
+    .question-text {
+      font-size: 1.35rem;
+      line-height: 1.55;
+      color: #f4ece0;
+      font-style: italic;
+      display: inline-block;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+      /* Gradient border using background layers for a shiny material effect */
+      background:
+        linear-gradient(#1E1F1E, #1E1F1E) padding-box,
+        linear-gradient(135deg,
+          #6A2543 0%,
+          #D586A8 30%,
+          #6A2543 50%,
+          #D586A8 70%,
+          #6A2543 100%) border-box;
+      /* Layered shadow: soft pink glow + tighter highlight for sheen */
+      box-shadow:
+        0 0 8px rgba(213, 134, 168, 0.15),
+        0 0 2px rgba(213, 134, 168, 0.25);
+    }
+
+    .question-hint {
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      color: #918880;
+    }
+
+    /* ── Error State ── */
+    .error-message {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #918880;
+      line-height: 1.6;
+    }
+
+    /* ── Footer Link ── */
+    .footer-link {
+      display: inline-block;
+      margin-top: 2.5rem;
+      font-size: 0.75rem;
+      color: #918880;
+      text-decoration: underline;
+      letter-spacing: 0.03em;
+      transition: color 0.2s ease;
+    }
+
+    .footer-link:hover {
+      color: #b8b0a2;
+    }
+
+    /* ── Responsive polish for larger screens ── */
+    @media (min-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .question-text {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="container" role="main">
+    <h1>Eros Ascends</h1>
+
+    <p class="intro">
+      Eros is the experience of longing, desire, and the pull toward creation. These questions are designed to deepen your understanding of Eros in yourself and in those around you.<br>
+      <em>Click the button below to get a question.</em>
+    </p>
+
+    <button class="btn" id="generate-btn" aria-label="Generate a question">
+      Give me a question
+    </button>
+
+    <div class="question-card" id="question-card" aria-live="polite">
+      <p class="question-text" id="question-text"></p>
+      <p class="question-hint">Ask someone nearby. Or answer it for yourself.</p>
+    </div>
+
+    <a class="footer-link" href="https://www.proximaslc.com" target="_blank" rel="noopener">Learn more about Proxima</a>
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // ── Fallback questions (used when JSON fetch fails, e.g. file:// protocol) ──
+      var FALLBACK = [
+        { id: "q001", question: "What are you wanting right now?" },
+        { id: "q002", question: "What feels most alive in you lately?" },
+        { id: "q003", question: "What would you pursue if you knew you couldn\u2019t fail at it?" },
+        { id: "q004", question: "When did you last feel pulled toward something you couldn\u2019t explain?" },
+        { id: "q005", question: "What have you been longing for but haven\u2019t said out loud?" },
+        { id: "q006", question: "What kind of beauty stops you in your tracks?" },
+        { id: "q007", question: "Who or what taught you the most about love?" },
+        { id: "q008", question: "What would you create if no one were watching?" }
+      ];
+
+      // ── State ──
+      let questions = [];
+      let lastQuestionId = null;
+      let hasGenerated = false;
+
+      // ── DOM refs ──
+      const btn = document.getElementById('generate-btn');
+      const card = document.getElementById('question-card');
+      const questionText = document.getElementById('question-text');
+
+      // ── Load questions from JSON, fall back to embedded list ──
+      fetch('questions.json')
+        .then(function (res) {
+          if (!res.ok) throw new Error('Failed to load');
+          return res.json();
+        })
+        .then(function (data) {
+          questions = data;
+        })
+        .catch(function () {
+          // JSON unavailable (e.g. opened as a local file) — use fallback
+          questions = FALLBACK;
+        });
+
+      // ── Pick a random question, avoiding repeats ──
+      function pickRandom() {
+        if (questions.length === 0) return null;
+        if (questions.length === 1) return questions[0];
+
+        var pick;
+        do {
+          pick = questions[Math.floor(Math.random() * questions.length)];
+        } while (pick.id === lastQuestionId);
+
+        lastQuestionId = pick.id;
+        return pick;
+      }
+
+      // ── Display a new question with a gentle transition ──
+      function showQuestion() {
+        var q = pickRandom();
+        if (!q) return;
+
+        if (hasGenerated) {
+          // Brief fade-out before swapping text
+          card.classList.add('fading');
+
+          setTimeout(function () {
+            questionText.textContent = q.question;
+            card.classList.remove('fading');
+          }, 160);
+        } else {
+          // First tap: show card immediately
+          hasGenerated = true;
+          questionText.textContent = q.question;
+          btn.textContent = 'Another question';
+          card.classList.add('visible');
+        }
+      }
+
+      // ── Button handler ──
+      btn.addEventListener('click', showQuestion);
+    })();
+  </script>
+
+</body>
+</html>
