@@ -329,6 +329,26 @@ body {
    Program Notes Page
    ═══════════════════════════════════════════════ */
 
+/* Program number shown to the left of the accordion header */
+.note-number {
+  flex-shrink: 0;
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: #918880;
+  letter-spacing: 0.03em;
+  margin-top: 0.25rem;
+  min-width: 1.4rem;
+}
+
+/* Performer line beneath composer */
+.note-performers {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: #918880;
+  letter-spacing: 0.03em;
+  margin-top: 0.25rem;
+}
+
 .note-section {
   margin-bottom: 0;
 }
@@ -421,8 +441,15 @@ body {
 }
 
 .note-section-static {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
   margin-bottom: 0;
   padding: 0.5rem 0 1.5rem;
+}
+
+.note-section-static .note-number {
+  margin-top: 0.15rem;
 }
 
 /* Note body text */
@@ -487,6 +514,27 @@ body {
 /* ═══════════════════════════════════════════════
    Bios Page
    ═══════════════════════════════════════════════ */
+
+/* Bio headshot */
+.bio-headshot {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#1E1F1E, #1E1F1E) padding-box,
+    linear-gradient(135deg,
+      #6A2543 0%,
+      #D586A8 40%,
+      #6A2543 60%,
+      #D586A8 80%,
+      #6A2543 100%) border-box;
+  box-shadow:
+    0 0 6px rgba(213, 134, 168, 0.12),
+    0 0 2px rgba(213, 134, 168, 0.2);
+  margin-bottom: 1rem;
+}
 
 .bio-card {
   margin-bottom: 3rem;
