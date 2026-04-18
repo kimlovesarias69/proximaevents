@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eros Ascends — Questions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── Site Header & Navigation ── -->
+  <header class="site-header">
+    <h1 class="site-title"><a href="index.html">EROS ASCENDS</a></h1>
+    <nav class="tab-nav" aria-label="Site navigation">
+      <a href="index.html">The Program</a>
+      <a href="bios.html">Performer Bios</a>
+      <a href="questions.html" class="active">Questions</a>
+    </nav>
+  </header>
+
+  <main class="page questions-page">
+
+    <p class="intro">
+      Eros is the experience of longing, desire, and the pull toward creation. These questions are designed to deepen your understanding of Eros in yourself and in those around you.<br>
+      <em>Click the button below to get a question.</em>
+    </p>
+
+    <button class="btn" id="generate-btn" aria-label="Generate a question">
+      Give me a question
+    </button>
+
+    <div class="question-card" id="question-card" aria-live="polite">
+      <p class="question-text" id="question-text"></p>
+      <p class="question-hint">Ask someone nearby. Or answer it for yourself.</p>
+    </div>
+
+    <a class="footer-link" href="https://www.proximaslc.com" target="_blank" rel="noopener">Learn more about Proxima</a>
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // ── Fallback questions (used when JSON fetch fails, e.g. file:// protocol) ──
+      var FALLBACK = [
+        { id: "q001", question: "What are you wanting right now?" },
+        { id: "q002", question: "What feels most alive in you lately?" },
+        { id: "q003", question: "What would you pursue if you knew you couldn\u2019t fail at it?" },
+        { id: "q004", question: "When did you last feel pulled toward something you couldn\u2019t explain?" },
+        { id: "q005", question: "What have you been longing for but haven\u2019t said out loud?" },
+        { id: "q006", question: "What kind of beauty stops you in your tracks?" },
+        { id: "q007", question: "Who or what taught you the most about love?" },
+        { id: "q008", question: "What would you create if no one were watching?" }
+      ];
+
+      // ── State ──
+      let questions = [];
+      let lastQuestionId = null;
+      let hasGenerated = false;
+
+      // ── DOM refs ──
+      const btn = document.getElementById('generate-btn');
+      const card = document.getElementById('question-card');
+      const questionText = document.getElementById('question-text');
+
+      // ── Load questions from JSON, fall back to embedded list ──
+      fetch('questions.json')
+        .then(function (res) {
+          if (!res.ok) throw new Error('Failed to load');
+          return res.json();
+        })
+        .then(function (data) {
+          questions = data;
+        })
+        .catch(function () {
+          questions = FALLBACK;
+        });
+
+      // ── Pick a random question, avoiding repeats ──
+      function pickRandom() {
+        if (questions.length === 0) return null;
+        if (questions.length === 1) return questions[0];
+
+        var pick;
+        do {
+          pick = questions[Math.floor(Math.random() * questions.length)];
+        } while (pick.id === lastQuestionId);
+
+        lastQuestionId = pick.id;
+        return pick;
+      }
+
+      // ── Display a new question with a gentle transition ──
+      function showQuestion() {
+        var q = pickRandom();
+        if (!q) return;
+
+        if (hasGenerated) {
+          card.classList.add('fading');
+
+          setTimeout(function () {
+            questionText.textContent = q.question;
+            card.classList.remove('fading');
+          }, 160);
+        } else {
+          hasGenerated = true;
+          questionText.textContent = q.question;
+          btn.textContent = 'Another question';
+          card.classList.add('visible');
+        }
+      }
+
+      // ── Button handler ──
+      btn.addEventListener('click', showQuestion);
+    })();
+  </script>
+
+</body>
+</html>

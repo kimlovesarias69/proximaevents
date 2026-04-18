@@ -1,0 +1,549 @@
+/* ═══════════════════════════════════════════════
+   EROS ASCENDS — Shared Styles
+   ═══════════════════════════════════════════════ */
+
+/* ── Reset & Base ── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+
+  /* ── Atmospheric layered background ──
+     Dark base with subtle color blooms:
+     pink glow upper-right, teal lower-left,
+     secondary teal lower-right, faint white center.
+  */
+  background-color: #000000;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 75% 8%,
+      rgba(204, 111, 152, 0.10) 0%,
+      transparent 70%),
+    radial-gradient(ellipse 80% 50% at 10% 55%,
+      rgba(0, 88, 96, 0.14) 0%,
+      transparent 60%),
+    radial-gradient(ellipse 50% 35% at 85% 80%,
+      rgba(0, 88, 96, 0.08) 0%,
+      transparent 55%),
+    radial-gradient(ellipse 45% 30% at 50% 35%,
+      rgba(255, 255, 255, 0.02) 0%,
+      transparent 60%),
+    linear-gradient(165deg,
+      #000000 0%,
+      #081a0e 20%,
+      #1a3825 45%,
+      #24442e 60%,
+      #003a40 80%,
+      #001a1e 100%);
+  background-attachment: fixed;
+
+  color: #ede6da;
+  min-height: 100dvh;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* ═══════════════════════════════════════════════
+   Site Header & Tab Navigation
+   ═══════════════════════════════════════════════ */
+
+.site-header {
+  text-align: center;
+  padding: 3.5rem 1.5rem 0;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.site-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #f4ece0;
+  margin-bottom: 1.5rem;
+}
+
+.site-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Tab bar */
+.tab-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 0;
+}
+
+.tab-nav a {
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #918880;
+  padding: 0.7rem 1.1rem;
+  position: relative;
+  transition: color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tab-nav a:hover {
+  color: #c8bfb2;
+}
+
+.tab-nav a.active {
+  color: #f4ece0;
+}
+
+/* Active tab underline — gradient shimmer */
+.tab-nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    #6A2543 20%,
+    #D586A8 50%,
+    #6A2543 80%,
+    transparent 100%);
+  box-shadow: 0 0 4px rgba(213, 134, 168, 0.15);
+}
+
+
+/* ═══════════════════════════════════════════════
+   Shared Page Layout
+   ═══════════════════════════════════════════════ */
+
+.page {
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 3.5rem;
+}
+
+.page-subtitle {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #918880;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+
+/* ═══════════════════════════════════════════════
+   Section Divider
+   ═══════════════════════════════════════════════ */
+
+.divider {
+  width: 60%;
+  max-width: 280px;
+  height: 1px;
+  margin: 0 auto 2.5rem;
+  border: none;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    #6A2543 15%,
+    #D586A8 35%,
+    #6A2543 50%,
+    #D586A8 65%,
+    #6A2543 85%,
+    transparent 100%);
+  box-shadow:
+    0 0 6px rgba(213, 134, 168, 0.12),
+    0 0 1px rgba(213, 134, 168, 0.2);
+}
+
+
+/* ═══════════════════════════════════════════════
+   Footer Link & Back-to-Top
+   ═══════════════════════════════════════════════ */
+
+.top-link {
+  display: block;
+  text-align: center;
+  margin-top: 4rem;
+  padding-bottom: 1rem;
+  font-size: 0.75rem;
+  color: #918880;
+  text-decoration: underline;
+  letter-spacing: 0.03em;
+  transition: color 0.2s ease;
+}
+
+.top-link:hover {
+  color: #b8b0a2;
+}
+
+.footer-link {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  padding-bottom: 2rem;
+  font-size: 0.75rem;
+  color: #918880;
+  text-decoration: underline;
+  letter-spacing: 0.03em;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #b8b0a2;
+}
+
+
+/* ═══════════════════════════════════════════════
+   Button (shared)
+   ═══════════════════════════════════════════════ */
+
+.btn {
+  display: inline-block;
+  font-family: inherit;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  background-color: #6A2543;
+  border: none;
+  border-radius: 6px;
+  padding: 0.9rem 2rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:hover {
+  background-color: #7d2e52;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:focus-visible {
+  outline: 2px solid #6A2543;
+  outline-offset: 3px;
+}
+
+
+/* ═══════════════════════════════════════════════
+   Questions Page
+   ═══════════════════════════════════════════════ */
+
+.questions-page {
+  text-align: center;
+}
+
+.questions-page .intro {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #b8b0a2;
+  margin-bottom: 2.5rem;
+}
+
+.questions-page .intro em {
+  font-style: italic;
+  color: #c8bfb2;
+}
+
+.question-card {
+  margin-top: 2.5rem;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.question-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.question-card.fading {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.question-text {
+  font-size: 1.35rem;
+  line-height: 1.55;
+  color: #f4ece0;
+  font-style: italic;
+  display: inline-block;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  background:
+    linear-gradient(#1E1F1E, #1E1F1E) padding-box,
+    linear-gradient(135deg,
+      #6A2543 0%,
+      #D586A8 30%,
+      #6A2543 50%,
+      #D586A8 70%,
+      #6A2543 100%) border-box;
+  box-shadow:
+    0 0 8px rgba(213, 134, 168, 0.15),
+    0 0 2px rgba(213, 134, 168, 0.25);
+}
+
+.question-hint {
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: #918880;
+}
+
+.error-message {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: #918880;
+  line-height: 1.6;
+}
+
+/* Questions-page footer link (inline variant) */
+.questions-page .footer-link {
+  display: inline-block;
+  margin-top: 2.5rem;
+}
+
+
+/* ═══════════════════════════════════════════════
+   Program Notes Page
+   ═══════════════════════════════════════════════ */
+
+.note-section {
+  margin-bottom: 0;
+}
+
+.note-title {
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: #f4ece0;
+  margin-bottom: 0.5rem;
+}
+
+.note-composer {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: #918880;
+  letter-spacing: 0.03em;
+  margin-bottom: 0;
+}
+
+/* Accordion */
+.accordion-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  padding: 0.5rem 0 1.5rem;
+  border: none;
+  background: none;
+  text-align: left;
+  width: 100%;
+  font-family: inherit;
+  color: inherit;
+}
+
+.accordion-header:focus-visible {
+  outline: 1px solid rgba(106, 37, 67, 0.5);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.accordion-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.accordion-label .note-title,
+.accordion-label .note-composer {
+  pointer-events: none;
+}
+
+.accordion-chevron {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  margin-top: 0.35rem;
+  transition: transform 0.3s ease;
+  opacity: 0.4;
+}
+
+.accordion-chevron polyline {
+  stroke: #b8b0a2;
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.note-section[data-open="true"] .accordion-chevron {
+  transform: rotate(180deg);
+  opacity: 0.55;
+}
+
+.accordion-content {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.45s ease, opacity 0.35s ease;
+}
+
+.note-section[data-open="true"] .accordion-content {
+  opacity: 1;
+}
+
+.accordion-inner {
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+}
+
+.note-section-static {
+  margin-bottom: 0;
+  padding: 0.5rem 0 1.5rem;
+}
+
+/* Note body text */
+.note-body p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #d8d0c4;
+  margin-bottom: 1.4rem;
+}
+
+.note-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Poetry / Source Text */
+.poem-block {
+  margin: 2.2rem 0;
+  padding-left: 1.25rem;
+  border-left: 1px solid rgba(106, 37, 67, 0.35);
+}
+
+.poem-label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #918880;
+  margin-bottom: 1rem;
+}
+
+.poem-block p {
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.85;
+  color: #c8c0b4;
+  margin-bottom: 0;
+}
+
+.poem-block .stanza {
+  margin-bottom: 1.2rem;
+}
+
+.poem-block .stanza:last-child {
+  margin-bottom: 0;
+}
+
+.inline-verse {
+  margin: 1.8rem 0;
+  padding-left: 1.25rem;
+  border-left: 1px solid rgba(106, 37, 67, 0.35);
+}
+
+.inline-verse p {
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.85;
+  color: #c8c0b4;
+  margin-bottom: 0;
+}
+
+
+/* ═══════════════════════════════════════════════
+   Bios Page
+   ═══════════════════════════════════════════════ */
+
+.bio-card {
+  margin-bottom: 3rem;
+}
+
+.bio-name {
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: #f4ece0;
+  margin-bottom: 0.35rem;
+}
+
+.bio-role {
+  font-size: 0.82rem;
+  font-weight: 300;
+  font-style: italic;
+  color: #918880;
+  letter-spacing: 0.03em;
+  margin-bottom: 1.25rem;
+}
+
+.bio-text p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #d8d0c4;
+  margin-bottom: 1.2rem;
+}
+
+.bio-text p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* ═══════════════════════════════════════════════
+   Responsive
+   ═══════════════════════════════════════════════ */
+
+@media (min-width: 600px) {
+  .site-title {
+    font-size: 1.8rem;
+  }
+
+  .page {
+    padding: 2.5rem 2rem 4rem;
+  }
+
+  .site-header {
+    padding-top: 4.5rem;
+  }
+
+  .note-title,
+  .bio-name {
+    font-size: 1.25rem;
+  }
+
+  .question-text {
+    font-size: 1.5rem;
+  }
+}
